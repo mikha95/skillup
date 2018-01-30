@@ -1,0 +1,11 @@
+.header .logo img {
+	float: left;
+}
+
+.header .logo img {
+	width: 40px
+}
+
+.header .nav li {
+	float: left;
+}
