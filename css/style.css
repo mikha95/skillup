@@ -44,3 +44,7 @@
     height: 20px;
     margin-left: 36%;
 	}
+.form {
+	border-radius: 10px;
+	background-color: #80808030;
+	}

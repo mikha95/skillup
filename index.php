@@ -5,11 +5,31 @@ define('PROJECT_NAME', 'SkillUp');
 $currentDate = time();
 $yesterday = $currentDate - SECONDS_IN_DAY * 7;
 
-echo $currentDate . "<br />" ;
-echo date('d.m.Y H:i:s') . "<br />";
-echo date('d.m.Y H:i:s', $yesterday);
+$posts = [
+    'profilePhoto' => [],
+    'nickname' => [],
+    'photo' => [],
+    'likes' => [],
+    'discrPost' => [],
 
-//require_once './template.php';
+
+];
+
+$posts['profilePhoto'] = [
+    1 => '/image/profile1.jpg',
+    '/image/profile2.jpg',
+
+];
+
+$posts['nickname'] = [
+    1 => '@id1357722',
+    '@hi574429',
+
+];
+var_dump($posts);
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -25,8 +45,28 @@ echo date('d.m.Y H:i:s', $yesterday);
         <?php require_once 'include/header.php'; ?>
 
         <hr class="hr">
-        <?= date('d.m.Y H:i:s', $yesterday);?>
+
         <div class="content">
+
+            <?php //require_once 'posts.php'; ?>
+
+            <?php if ($posts['profilePhoto']) { ?>
+
+
+            <div class="post1"> <!-- Пост 1 -->
+                <div class="photo_of_profile">
+                    <?php foreach ($posts['profilePhoto'] as $key => $profilePhoto) {?>
+                    <img src="<?= $profilePhoto ?>" alt="photo_of_profile">
+                    <?php } ?>
+                    <div class="name">@id1357722</div>
+
+                </div>
+
+            </div>
+            <?php } ?>
+
+
+
             <div class="post1"> <!-- Пост 1 -->
                 <div class="photo_of_profile">
                     <img src="image/profile1.jpg" alt="photo_of_profile">
