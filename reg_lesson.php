@@ -1,5 +1,11 @@
 <?php
 
+function getFullName($user) {
+    return $user['firstname'] . ' ' . $user['lastname'];
+}
+
+$errorMessage = [];
+
 $user = [
     'firstname' => ' Иванов 1',
     'lastname' => null,
@@ -8,7 +14,10 @@ $user = [
     'age' => null,
     'growth' => null,
     'stack_learn' => [],
+    'list_fruits' => 'Яблоко, Апельсин, Груша',
 ];
+
+
 
 if ( isset($_POST['is_agree']) ) {
     $user = [
@@ -19,24 +28,28 @@ if ( isset($_POST['is_agree']) ) {
         'age' => (int)$_POST['age'],
         'growth' => $_POST['growth'],
         'stack_learn' => [],
+        'list_fruits' => 'Яблоко, Апельсин, Груша',
     ];
+
+    var_dump(getFullName($user));
+    
     if (isset($_POST['stack_learn'])) {
         $user['stack_learn'] = $_POST['stack_learn'];
     }
 
-    var_dump($user);
-
-    if ($user['age'] >= 18) {
-        echo 'Этот пользователь достаточно взрослый';
-    } elseif ($user['age'] === 18) {
-        echo 'Этот пользователь достиг врослого возраста';
-    } else {
-        echo 'Этот пользователь недостаточно взрослый';
+    if (strlen($user['firstname']) < 3 || strlen($user['lastname']) <3) {
+        $errorMessage[] = 'Имя и фамилия не должны быть короче трёх символов';
     }
 
-    echo "<br>";
+    if ( !(in_array('html', $user['stack_learn']) && in_array('php', $user['stack_learn'])) ) {
+        $errorMessage[] = 'Требуется html и php';
+    }
 }
 
+    $string = 'Hello, world!';
+    $result = substr($string, 7, 2);
+    var_dump($result);
+echo "<br>";
 ?>
 
 <!doctype html>
@@ -50,27 +63,44 @@ if ( isset($_POST['is_agree']) ) {
 </head>
 <body>
 
+<?php if ($errorMessage) { ?>
+    <?php foreach ($errorMessage as $message) { ?>
+
+    <div class="alert alert-danger" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    <?= $message ?>
+    </div>
+    <?php } ?>
+<?php } ?>
+
 <div class="container-fluid jumbotron col-md-offset-4 col-md-5">
 
-    <?php if ($user['stack_learn']) { ?>
+    <?php if (isset($user['stack_learn'])) { ?>
     <h3>Мы изучаем:</h3>
     <ul>
-        <?php foreach ($user['stack_learn'] as $key => $lang) { ?>
+        <?php foreach ($user['stack_learn'] as $key => $lang) { //key можно убрать ?>
             <li><?= $lang ?></li>
         <?php } ?>
+        <h3>Наши фрукты:</h3>
+        <?php foreach (explode(', ', $user['list_fruits']) as $key => $fruit) { ?>
+            <li><?= $fruit ?></li>
+        <?php } ?>
     </ul>
+        <h3>Мы изучаем: <?= implode(', ', $user['stack_learn']) ?>.</h3>
     <?php } ?>
+
 
     <hr />
 
     <form action="" method="POST">
         <div class="form-group">
             <label for="firstname">Имя</label>
-            <input class="form-control" id="firstname" name="firstname" value="<?= $user['firstname'] ?>" placeholder="Имя" required>
+            <input class="form-control" id="firstname" name="firstname" value="<?= (isset($_POST['firstname'])) ? $_POST['firstname'] : '' ?>" placeholder="Имя" required>
         </div>
         <div class="form-group">
             <label for="lastname">Фамилия</label>
-            <input class="form-control" id="lastname" name="lastname" placeholder="Фамилия" required>
+            <input class="form-control" id="lastname" name="lastname" value="<?= (isset($_POST['lastname'])) ? $_POST['lastname'] : '' ?>" placeholder="Фамилия" required>
         </div>
         <div class="form-group">
             <label for="password" class="control-label">Пароль</label>

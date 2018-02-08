@@ -56,7 +56,10 @@ var_dump($posts);
             <div class="post1"> <!-- Пост 1 -->
                 <div class="photo_of_profile">
                     <?php foreach ($posts['profilePhoto'] as $key => $profilePhoto) {?>
-                    <img src="<?= $profilePhoto ?>" alt="photo_of_profile">
+                    <img src="/skillup<?= $profilePhoto ?>" alt="photo_of_profile">
+                    <?php if ($posts['nickname']) {
+
+                        }
                     <?php } ?>
                     <div class="name">@id1357722</div>
 
