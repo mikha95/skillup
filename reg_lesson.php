@@ -1,9 +1,41 @@
 <?php
 
+define('UPLOAD_DIR', 'upload/');
+
+
+//$h = fopen('test.txt', 'a+');
+//for ($i=1;$i <= 100; $i++) {
+//    fwrite($h, "new string: {$i}" . PHP_EOL);
+//}
+//
+//fclose($h);
+
+//$arrResult = glob('*.txt');
+//foreach ($arrResult as $filename) {
+//    var_dump(filesize($filename)); //кладётся ...
+//    //copy($filename, './css/' .$filename.'.bak');
+//    //rename('./css/' .$filename.'.bak', './css/' .$filename);
+//    //unlink('./css/' .$filename);  //удаление
+//}
+//var_dump($arrResult);
+
+//die();
+
+
+
+
+
 function getFullName($user) {
     return $user['firstname'] . ' ' . $user['lastname'];
 }
-
+function createPath($path) {
+    $isSuccess = false;
+    if (!file_exists($path)) {
+        $isSuccess = mkdir($path, 0777 , true);
+    }
+    move_uploaded_file($_FILES['photo']['tmp_name'], UPLOAD_DIR . $_FILES['photo']['name']);
+    return $isSuccess;
+}
 $errorMessage = [];
 
 $user = [
@@ -20,6 +52,7 @@ $user = [
 
 
 if ( isset($_POST['is_agree']) ) {
+  //создание пользователя
     $user = [
         'firstname' => $_POST['firstname'],
         'lastname' => $_POST['lastname'],
@@ -32,7 +65,7 @@ if ( isset($_POST['is_agree']) ) {
     ];
 
     var_dump(getFullName($user));
-    
+
     if (isset($_POST['stack_learn'])) {
         $user['stack_learn'] = $_POST['stack_learn'];
     }
@@ -40,12 +73,29 @@ if ( isset($_POST['is_agree']) ) {
     if (strlen($user['firstname']) < 3 || strlen($user['lastname']) <3) {
         $errorMessage[] = 'Имя и фамилия не должны быть короче трёх символов';
     }
-
+// валидация
     if ( !(in_array('html', $user['stack_learn']) && in_array('php', $user['stack_learn'])) ) {
         $errorMessage[] = 'Требуется html и php';
     }
 }
 
+$jsonUser = json_encode($user);
+$arrUser = json_decode($jsonUser, true);
+$objUser = json_decode($jsonUser, false);
+$test = serialize(12);
+var_dump($jsonUser);
+var_dump($arrUser);
+var_dump($objUser);
+var_dump(serialize($objUser));
+var_dump(unserialize($test));
+
+if (isset($_FILES['photo']) && empty($_FILES['photo']['error'])) {
+    $uploadPath = UPLOAD_DIR . 'photo/';
+    createPath($uploadPath);
+    move_uploaded_file($_FILES['photo']['tmp_name'], $uploadPath . uniqid() . '.png');
+}
+
+var_dump($_FILES);
     $string = 'Hello, world!';
     $result = substr($string, 7, 2);
     var_dump($result);
@@ -93,7 +143,7 @@ echo "<br>";
 
     <hr />
 
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="firstname">Имя</label>
             <input class="form-control" id="firstname" name="firstname" value="<?= (isset($_POST['firstname'])) ? $_POST['firstname'] : '' ?>" placeholder="Имя" required>
@@ -102,6 +152,14 @@ echo "<br>";
             <label for="lastname">Фамилия</label>
             <input class="form-control" id="lastname" name="lastname" value="<?= (isset($_POST['lastname'])) ? $_POST['lastname'] : '' ?>" placeholder="Фамилия" required>
         </div>
+
+
+        <div class="form-group">
+            <label for="photo" class="control-label">Фото</label>
+            <input type="file" class="form-control" name="photo" id="" placeholder="">
+        </div>
+
+
         <div class="form-group">
             <label for="password" class="control-label">Пароль</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="Пароль">
