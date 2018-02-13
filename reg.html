@@ -3,33 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="image/favicon.ico">
 </head>
 
 
 <body>
-<form action="" method="POST" class="form">
-    <div class="reg-form">
-        <label for="E-mail">E-mail адрес</label>
-        <input type="text" class="reg-area" id="E-mail" name="E-mail" required>
+<div class="container-fluid jumbotron col-md-offset-4 col-md-5">
+<form action="" method="POST">
+    <div class="form-group">
+        <label for="firstname">Имя</label>
+        <input class="form-control" id="firstname" name="firstname" value="" placeholder="Имя" required>
     </div>
-    <div class="reg-form">
-        <label for="Nickname">Никнейм</label>
-        <input type="text" class="reg-area" id="Nickname" name="Nickname" required>
+    <div class="form-group">
+        <label for="lastname">Фамилия</label>
+        <input class="form-control" id="lastname" name="lastname" value="" placeholder="Фамилия" required>
     </div>
-    <div class="reg-form">
-        <label for="Password">Пароль</label>
-        <input type="password" class="reg-area" id="Password" name="Password" required>
+    <div class="form-group">
+        <label for="password" class="control-label">Пароль</label>
+        <input type="password" class="form-control" name="password" id="password" placeholder="Пароль">
     </div>
-
-
-
-
-
-
+    <div class="form-group">
+        <label for="password" class="control-label">Пол:</label>
+        <label class="radio-inline">
+            <input type="radio" name="sex" id="male" value="0" checked> Мужской
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="sex" id="female" value="1"> Женский
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="age" class="control-label">Возраст</label>
+        <input class="form-control" id="age" name="age" value="">
+    </div>
+    <button class="btn btn-primary">Зарегистрироваться</button>
 </form>
-
-
+</div>
 
 </body>
 </html>

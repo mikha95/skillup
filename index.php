@@ -6,29 +6,38 @@ $currentDate = time();
 $yesterday = $currentDate - SECONDS_IN_DAY * 7;
 
 $posts = [
-    'profilePhoto' => [],
-    'nickname' => [],
-    'photo' => [],
-    'likes' => [],
-    'discrPost' => [],
-
-
+        'profilePhoto' => [
+            1 => '/image/profile1.jpg',
+            '/image/profile2.jpg',
+            '/image/profile3.jpg',
+            '/image/profile4.jpg',
+            '/image/profile5.jpg',
+        ],
+        'id' => [
+            1 => '@id1357722',
+            '@hi574429',
+            '@ghcvhyjbjkbj',
+            '@id5565478',
+            '@yep987655',
+        ],
+        'photo' => [
+            1 => '/image/photo1.jpg',
+            '/image/photo2.jpg',
+            '/image/photo3.jpg',
+            '/image/photo4.jpg',
+            '/image/photo5.jpg',
+        ],
+        'like' => [
+            1 => '/image/like.png',
+        ],
+        'discrPost' => [
+            1 => 'Отдохнула на природе. #nature',
+            'Хороший был день. #nature',
+            'Покрасил #bike',
+            'Выбрался на озеро. #nature #bike',
+            'Квадратное дерево, лол. #nature',
+        ],
 ];
-
-$posts['profilePhoto'] = [
-    1 => '/image/profile1.jpg',
-    '/image/profile2.jpg',
-
-];
-
-$posts['nickname'] = [
-    1 => '@id1357722',
-    '@hi574429',
-
-];
-var_dump($posts);
-
-
 
 ?>
 
@@ -49,27 +58,33 @@ var_dump($posts);
         <div class="content">
 
             <?php //require_once 'posts.php'; ?>
-
-            <?php if ($posts['profilePhoto']) { ?>
-
-
+<?php if(isset($posts['photo'])) { ?>
             <div class="post1"> <!-- Пост 1 -->
+            <?php foreach($posts['profilePhoto'] as $profilePhoto)  { ?>
+
                 <div class="photo_of_profile">
-                    <?php foreach ($posts['profilePhoto'] as $key => $profilePhoto) {?>
                     <img src="/skillup<?= $profilePhoto ?>" alt="photo_of_profile">
-                    <?php if ($posts['nickname']) {
 
-                        }
+
+                    <?php foreach($posts['id'] as $id) { ?>
+                    <div class="name"><?= $id ?></div>
                     <?php } ?>
-                    <div class="name">@id1357722</div>
+                </div>
 
+
+            <?php } ?>
+                <div class="photo_in_post" align="center">
+                    <img src="image/photo1.jpg" alt="photo_in_post">
+                </div>
+                <div class="likes">
+                    <img src="image/like.png" alt="like">
+                </div>
+                <div class="description">
+                    <p>Отдохнула на природе. <span class="tag">#nature</span></p>
                 </div>
 
             </div>
-            <?php } ?>
-
-
-
+<?php } ?>
             <div class="post1"> <!-- Пост 1 -->
                 <div class="photo_of_profile">
                     <img src="image/profile1.jpg" alt="photo_of_profile">
