@@ -40,7 +40,6 @@ require_once 'include/profiles.php';
                     <?php } ?>
                 </div>
 
-
             <?php } ?>
                 <div class="photo_in_post" align="center">
                     <img src="image/photo1.jpg" alt="photo_in_post">

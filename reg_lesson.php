@@ -52,6 +52,9 @@ $user = [
 
 
 if ( isset($_POST['is_agree']) ) {
+
+    //header('Location: /path/to/route');  //редирект
+
   //создание пользователя
     $user = [
         'firstname' => $_POST['firstname'],
@@ -76,6 +79,25 @@ if ( isset($_POST['is_agree']) ) {
 // валидация
     if ( !(in_array('html', $user['stack_learn']) && in_array('php', $user['stack_learn'])) ) {
         $errorMessage[] = 'Требуется html и php';
+    }
+
+    if (empty($errorMessage)) {
+
+            $db = new PDO('mysql:host=localhost;dbname=php2;charset=utf8', 'root', 'root');
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $result = $db->prepare("
+            INSERT INTO users (firstname, lastname, password, growth, age)
+            VALUES (:firstname, :lastname, :password, :growth, :age);
+        ");
+            $result->execute([
+                'firstname' => $user['firstname'],
+                'lastname' => $user['lastname'],
+                'password' => $user['password'],
+                'growth' => $user['growth'],
+                'age' => $user['age'],
+            ]);
+
+        var_dump('test');
     }
 }
 

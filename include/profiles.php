@@ -36,7 +36,7 @@ $posts = [
 
 $jsonPosts = json_encode($posts);
 //fopen('profiles_json.php');
-file_put_contents('profiles_json.php',$jsonPosts);
+file_put_contents('include/profiles_json.php',$jsonPosts . PHP_EOL); //СЕРИАЛИЗОВАТЬ(?)
 
 var_dump($jsonPosts);
 
