@@ -1,43 +1,12 @@
 <?php
+chmod('include/profiles.php', 0755);
 
 define('SECONDS_IN_DAY', 86400);
 define('PROJECT_NAME', 'SkillUp');
 $currentDate = time();
 $yesterday = $currentDate - SECONDS_IN_DAY * 7;
 
-$posts = [
-        'profilePhoto' => [
-            1 => '/image/profile1.jpg',
-            '/image/profile2.jpg',
-            '/image/profile3.jpg',
-            '/image/profile4.jpg',
-            '/image/profile5.jpg',
-        ],
-        'id' => [
-            1 => '@id1357722',
-            '@hi574429',
-            '@ghcvhyjbjkbj',
-            '@id5565478',
-            '@yep987655',
-        ],
-        'photo' => [
-            1 => '/image/photo1.jpg',
-            '/image/photo2.jpg',
-            '/image/photo3.jpg',
-            '/image/photo4.jpg',
-            '/image/photo5.jpg',
-        ],
-        'like' => [
-            1 => '/image/like.png',
-        ],
-        'discrPost' => [
-            1 => 'Отдохнула на природе. #nature',
-            'Хороший был день. #nature',
-            'Покрасил #bike',
-            'Выбрался на озеро. #nature #bike',
-            'Квадратное дерево, лол. #nature',
-        ],
-];
+require_once 'include/profiles.php';
 
 ?>
 
